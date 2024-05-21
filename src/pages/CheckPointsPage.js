@@ -1,12 +1,15 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Task from "../components/Task";
+import React from 'react';
+import Task from '../components/Task';
+import { useSelector } from 'react-redux';
 
 function CheckPointsPage(props) {
-  const count = useSelector((state) => state.task.count);
+  const name = useSelector((state) => state.task.name);
+
   return (
     <div>
-      <Task count={count}></Task>
+      <h3>{name}</h3>
+      <Task></Task>
+      <button>ДОБАВИТЬ</button>
     </div>
   );
 }
