@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createList } from "../redux/slices/taskSlices";
+import { createList } from "../redux/slices/taskGroopSlices";
 import { useNavigate } from "react-router-dom";
+import { addTask } from "../redux/slices/taskSlices";
+
 
 function FormTask(props) {
   const navigate = useNavigate();
@@ -16,6 +18,20 @@ function FormTask(props) {
     if(name==''||count==''){return alert('Выберите значения!')}
     dispatch(createList({ name, count }));
     navigate("my-app/src/pages/CheckPointsPage.js")
+    onAddTask(count)
+  }
+
+  function onAddTask(count) {
+    const checkboxes = [];
+    for (let i = 0; i < count; i++) {
+      checkboxes.push({ checked: false });
+    }
+    dispatch(
+      addTask({
+        name: "",
+        items: checkboxes,
+      })
+    );
   }
 
   return (

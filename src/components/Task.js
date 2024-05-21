@@ -1,40 +1,46 @@
-import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeCheckbox, changeNameTask } from "../redux/slices/taskSlices";
 
 function Task() {
-  const count = useSelector((state) => state.task.count);
-  console.log(count);
+  const count = useSelector((state) => state.taskGroop.count);
+  const tasks = useSelector((state) => state.task);
+  console.log(tasks)
   const dispatch = useDispatch();
-  function renderCheckBox() {
-    // function renderCheckBox() {
-    //     const checkboxes = [];
-    //     for (let i = 0; i < count; i++) {
-    //       checkboxes.push(<input type="checkbox" key={i} />); // добавляем каждый элемент в массив
-    //     }
-    //     return checkboxes; // возвращаем массив элементов
-    //   }
-    const checkboxes = [];
-    for (let i = 0; i < count; i++) {
-      checkboxes.push(
-        <span>
-          <input type="checkbox" key={i} />
-          {i + 1}
-        </span>
-      );
-    }
-    return checkboxes;
+
+//   const ref = useRef();
+//   const value=ref.current==undefined?'':ref.current.value
+//  console.log(value)
+  function onChangeNameTasks(e,i,g) {
+     const value=e.target.value
+    dispatch(changeNameTask({i,value,g}))
   }
 
-  const ref = useRef();
-  function changeNameTask() {
-    console.log(ref.current.value);
-
-    dispatch(changeNameTask(ref.current.value));
+  function onChangeCheckBox(i,g){
+      dispatch(changeCheckbox({i,g}))
   }
+
   return (
     <div>
-      <input onChange={() => changeNameTask} ref={ref} />
-      <div>{renderCheckBox()}</div>
+      {tasks.map((task, i) => {
+
+        return (
+          <>
+            <input value={tasks[i].name} onChange={(e)=>onChangeNameTasks(e,i)} />
+            <div>
+              {task.items.map((item,g) => {
+                return (
+                  <span>
+                    <input onChange={()=>onChangeCheckBox(i,g)} type="checkbox" key={i} />
+
+                    {g + 1}
+                  </span>
+                );
+              })}
+            </div>
+          </>
+        );
+      })}
     </div>
   );
 }

@@ -1,20 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  name: '',
-  count: 5,
-};
+const initialState = [];
 
 const listSlice = createSlice({
-  name: 'list',
+  name: "list",
   initialState,
   reducers: {
-    createList(state, action) {
-      state.name = action.payload.name;
-      state.count = action.payload.count;
+    addTask(state, action) {
+      state.push(action.payload);
+      console.log(state);
+    },
+    changeNameTask(state, action) {
+      console.log(state[action.payload.i].name);
+      state[action.payload.i].name = action.payload.value;
+    },
+    changeCheckbox(state, action) {
+      console.log(action.payload);
+      state[action.payload.i].items[action.payload.g].checked =
+        !state[action.payload.i].items[action.payload.g].checked;
     },
   },
 });
 
-export const { createList } = listSlice.actions;
+export const { changeNameTask, addTask, changeCheckbox } = listSlice.actions;
 export default listSlice.reducer;

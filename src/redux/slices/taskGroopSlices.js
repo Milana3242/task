@@ -1,18 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  nameTask: '',
+  name: '',
+  count: 5,
 };
 
 const listSlice = createSlice({
   name: 'list',
   initialState,
   reducers: {
-    changeNameTask(state, action) {
+    createList(state, action) {
       state.name = action.payload.name;
+      state.count = action.payload.count;
     },
   },
 });
 
-export const { changeNameTask } = listSlice.actions;
+export const { createList } = listSlice.actions;
 export default listSlice.reducer;
