@@ -1,30 +1,20 @@
-import React from "react";
-import Task from "../components/Task";
-import { useSelector, useDispatch } from "react-redux";
-import { addTask } from "../redux/slices/taskSlices";
+import React from 'react';
+import Task from '../components/Task';
+import { useSelector, useDispatch } from 'react-redux';
 
 function CheckPointsPage(props) {
   const name = useSelector((state) => state.taskGroop.name);
+  console.log(useSelector((state) => state.taskGroop));
   const count = useSelector((state) => state.taskGroop.count);
-  const dispatch = useDispatch();
-  function onAddTask() {
-    const checkboxes = [];
-    for (let i = 0; i < count; i++) {
-      checkboxes.push({ checked: false });
-    }
-    dispatch(
-      addTask({
-        name: "",
-        items: checkboxes,
-      })
-    );
-  }
+
+  const tasks = useSelector((state) => state.taskGroop);
 
   return (
     <div>
-      <h3>{name}</h3>
-      <Task></Task>
-      <button onClick={onAddTask}>ДОБАВИТЬ</button>
+      {tasks.length > 0 &&
+        tasks.map((item) => {
+          <Task name={item.name} count={item.count}></Task>;
+        })}
     </div>
   );
 }

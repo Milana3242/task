@@ -1,10 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { createList } from "../redux/slices/taskGroopSlices";
-import { useNavigate } from "react-router-dom";
-import { addTask } from "../redux/slices/taskSlices";
-
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { createList } from '../redux/slices/taskGroopSlices';
+import { useNavigate } from 'react-router-dom';
+import { addTask } from '../redux/slices/taskSlices';
 
 function FormTask(props) {
   const navigate = useNavigate();
@@ -15,10 +14,12 @@ function FormTask(props) {
   function createListAndNextPage() {
     const name = inputRef.current.value;
     const count = selectRef.current.value;
-    if(name==''||count==''){return alert('Выберите значения!')}
+    if (name == '' || count == '') {
+      return alert('Выберите значения!');
+    }
     dispatch(createList({ name, count }));
-    navigate("my-app/src/pages/CheckPointsPage.js")
-    onAddTask(count)
+    navigate('my-app/src/pages/CheckPointsPage.js');
+    onAddTask(count);
   }
 
   function onAddTask(count) {
@@ -28,7 +29,7 @@ function FormTask(props) {
     }
     dispatch(
       addTask({
-        name: "",
+        name: '',
         items: checkboxes,
       })
     );
@@ -54,7 +55,7 @@ function FormTask(props) {
       <br></br>
       <br></br>
       <br></br>
-        <button onClick={createListAndNextPage}>Создать таску</button>
+      <button onClick={createListAndNextPage}>Создать таску</button>
     </div>
   );
 }
