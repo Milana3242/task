@@ -2,7 +2,7 @@ body {
   background-color: rgb(129, 197, 218);
 }
 
-.header__logo {
+/* .header__logo {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -19,4 +19,44 @@ body {
 }
 .header__logo p {
   color: #7b7b7b;
+} */
+
+.Header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* Высота шапки */
+  background-color: #b67e7e; /* Цвет фона шапки */
+  top: 0;
+  width: 100%;
+}
+
+.navigate {
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 100vh;
+  background-color: #919555;
+}
+
+.navigate li {
+  list-style-type: none;
+}
+
+.content {
+  position: relative;
+  display: flex;
+}
+
+.task_form {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  max-width: 200px;
+  padding: 30px;
+  text-align: center;
+  background-color: #7fa880;
+  margin-top: 100px;
 }

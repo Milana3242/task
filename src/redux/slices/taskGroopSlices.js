@@ -1,17 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  name: '',
-  count: 5,
-};
+const initialState = [];
 
 const listSlice = createSlice({
   name: 'list',
   initialState,
   reducers: {
     createList(state, action) {
-      state.name = action.payload.name;
-      state.count = action.payload.count;
+      // state.name = action.payload.name;
+      // state.count = action.payload.count;
+      state.push(action.payload);
     },
   },
 });

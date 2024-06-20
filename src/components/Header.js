@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Header(props) {
   return (
     <div className="Header">
-      <div className="header__logo">
+      {/* <div className="header__logo">
         <Link to={"/"}>
 
           <img width="38" src="./pizza-logo.svg" alt="Pizza logo" />
@@ -17,7 +17,8 @@ function Header(props) {
             quod!
           </p>
         </div>
-      </div>
+      </div> */}
+      <span>ГЛАВНАЯ</span>
     </div>
   );
 }
