@@ -1,26 +1,32 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCheckbox, changeNameTask } from "../redux/slices/taskSlices";
+import { addTask } from '../redux/slices/taskSlices';
 
-function Task() {
-  const count = useSelector((state) => state.taskGroop.count);
+function Task({ name, count }) {
   const tasks = useSelector((state) => state.task);
-  console.log(tasks)
+  const items = useSelector((state) => state.taskGroop.items);
   const dispatch = useDispatch();
+  console.log(name);
+  console.log(items);
 
-  function onChangeNameTasks(e,i,g) {
-     const value=e.target.value
-    dispatch(changeNameTask({i,value,g}))
+  function onChangeNameTasks(e, i, g) {
+    const value = e.target.value;
+    dispatch(changeNameTask({ i, value, g }));
   }
 
-  function onChangeCheckBox(i,g){
-      dispatch(changeCheckbox({i,g}))
+  function onChangeCheckBox(i, g) {
+    dispatch(changeCheckbox({ i, g }));
   }
+
+
 
   return (
     <div>
-      {tasks.map((task, i) => {
+        <h3>{name}</h3>
+      <input  onChange={(e) => onChangeNameTasks(e)} />
 
+      {tasks.map((task, i) => {
         return (
           <>
             <input value={tasks[i].name} onChange={(e)=>onChangeNameTasks(e,i)} />
@@ -38,6 +44,7 @@ function Task() {
           </>
         );
       })}
+
     </div>
   );
 }

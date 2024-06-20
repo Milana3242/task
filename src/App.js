@@ -36,7 +36,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
-            path="/my-app/src/pages/CheckPointsPage.js"
+            path="/CheckPointsPage"
             element={<CheckPointsPages />}
           />
         </Routes>

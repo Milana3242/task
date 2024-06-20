@@ -11,7 +11,6 @@ const listSlice = createSlice({
       console.log(state);
     },
     changeNameTask(state, action) {
-      console.log(state[action.payload.i].name);
       state[action.payload.i].name = action.payload.value;
     },
     changeCheckbox(state, action) {

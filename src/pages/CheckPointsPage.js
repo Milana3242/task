@@ -3,15 +3,16 @@ import Task from "../components/Task";
 import { useSelector, useDispatch } from "react-redux";
 
 function CheckPointsPage(props) {
-  const name = useSelector((state) => state.taskGroop.name);
-  const count = useSelector((state) => state.taskGroop.count);
   const tasks = useSelector((state) => state.taskGroop);
+  const index = window.location.search.split("=")[1];
+  const filterTask = tasks[index];
+  console.log('fil',filterTask);
+  console.log('tasks',tasks);
+  console.log('index',index);
+
   return (
-    <div>
-      {tasks.length > 0 &&
-        tasks.map((item) => {
-          <Task name={item.name} count={item.count}></Task>;
-        })}
+    <div className="task_form">
+      <Task name={filterTask.name} count={filterTask.count}></Task>
     </div>
   );
 }

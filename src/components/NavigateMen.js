@@ -5,13 +5,19 @@ import { useNavigate } from 'react-router-dom';
 
 export default function NavigateMenu() {
   const tasks = useSelector((state) => state.taskGroop);
-  console.log(tasks.length === 0);
   const navigate = useNavigate();
 
-  function openTask(name){
-    navigate(`my-app/src/pages/CheckPointsPage.js?name=${name}`);
-let nam=window.location.search.split('=')[1]
+  function openTask(i){
+    navigate(`/CheckPointsPage?index=${i}`);
+    // onAddTask(count)
   }
+  // function onAddTask(count) {
+  //   const checkboxes = [];
+  //   for (let i = 0; i < count; i++) {
+  //     checkboxes.push({ checked: false });
+  //   }
+  //  return checkboxes
+  // }
 
   return (
     <div className="navigate">
@@ -21,9 +27,8 @@ let nam=window.location.search.split('=')[1]
             <Link to={'/'}>ГЛАВНАЯ</Link>
           </li>
           {tasks.length > 0 &&
-            tasks.map((item) => {
-              console.log(item.name);
-              return <li onClick={()=>openTask(item.name)}>{item.name}</li>;
+            tasks.map((item,i) => {
+              return <li onClick={()=>openTask(i)}>{item.name}</li>;
             })}
         </ol>
       </nav>

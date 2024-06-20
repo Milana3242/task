@@ -18,7 +18,7 @@ function FormTask(props) {
       return alert('Выберите значения!');
     }
     dispatch(createList({ name, count }));
-    navigate('my-app/src/pages/CheckPointsPage.js');
+    navigate('/CheckPointsPage');
     onAddTask(count);
   }
 
