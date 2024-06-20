@@ -12,17 +12,17 @@ import store from "./redux/store";
 function App() {
   const state = useSelector((state) => state);
 
-  React.useEffect(() => {
-    const store=JSON.parse(window.localStorage.getItem("tasks"));
-    useSelector((state) => state=store)
-  }, []);
+  // React.useEffect(() => {
+  //   const store=JSON.parse(window.localStorage.getItem("tasks"));
 
-  React.useEffect(() => {
-    console.log(state)
-    console.log(JSON.stringify(state))
+  // }, []);
 
-    localStorage.setItem("tasks", JSON.stringify(state));
-  }, []);
+  // React.useEffect(() => {
+  //   // console.log(state)
+  //   // console.log(JSON.stringify(state))
+
+  //   localStorage.setItem("tasks", JSON.stringify(state));
+  // }, []);
 
   return (
     <div className="App">
