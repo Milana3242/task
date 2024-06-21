@@ -1,30 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import CheckPointsPages from './pages/CheckPointsPage';
-import Home from './pages/Home';
-import Header from './components/Header';
-import store from './redux/store';
+import CheckPointsPages from "./pages/CheckPointsPage";
+import Home from "./pages/Home";
+import Header from "./components/Header";
+import store from "./redux/store";
 // import NavigateMenu from './components/NavigateMenu';
-import NavigateMen from './components/NavigateMen';
+import NavigateMen from "./components/NavigateMen";
 
 function App() {
-  const state = useSelector((state) => state);
-
-  // React.useEffect(() => {
-  //   const store=JSON.parse(window.localStorage.getItem("tasks"));
-
-  // }, []);
-
-  // React.useEffect(() => {
-  //   // console.log(state)
-  //   // console.log(JSON.stringify(state))
-
-  //   localStorage.setItem("tasks", JSON.stringify(state));
-  // }, []);
 
 
   return (
@@ -35,10 +22,7 @@ function App() {
         <NavigateMen />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/CheckPointsPage"
-            element={<CheckPointsPages />}
-          />
+          <Route path="/CheckPointsPage/:id" element={<CheckPointsPages />} />
         </Routes>
       </div>
     </div>

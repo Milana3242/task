@@ -11,12 +11,19 @@ const listSlice = createSlice({
       console.log(state);
     },
     changeNameTask(state, action) {
-      state[action.payload.i].name = action.payload.value;
+      // state[action.payload.i].name = action.payload.value;
+      const itemToChange = state.filter(
+        (item) => item.listId === action.payload.id
+      );
+      itemToChange[action.payload.i].name = action.payload.value;
     },
     changeCheckbox(state, action) {
-      console.log(action.payload);
-      state[action.payload.i].items[action.payload.g].checked =
-        !state[action.payload.i].items[action.payload.g].checked;
+    //   state[action.payload.i].items[action.payload.g].checked =
+    //     !state[action.payload.i].items[action.payload.g].checked;
+    const itemToChange = state.filter(
+      (item) => item.listId === action.payload.id
+    );
+    itemToChange[action.payload.i].items[action.payload.g].checked =!itemToChange[action.payload.i].items[action.payload.g].checked ;
     },
   },
 });
