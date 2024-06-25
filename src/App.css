@@ -31,6 +31,10 @@ body {
   width: 100%;
 }
 
+.nav_main {
+  color: rgb(27, 24, 218);
+}
+
 .navigate {
   top: 0;
   left: 0;
@@ -39,8 +43,8 @@ body {
   background-color: #919555;
 }
 
-.navigate li {
-  list-style-type: none;
+.navigate a {
+  text-decoration: none;
 }
 
 .content {

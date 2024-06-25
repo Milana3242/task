@@ -8,16 +8,12 @@ function CheckPointsPage(props) {
   const dispatch = useDispatch();
   const par = useParams();
   const tasks = useSelector((state) => state.taskGroop);
-  console.log("tasks", tasks);
-  console.log("par", par);
-
 
   return (
     <div className="task_form">
       {tasks
         .filter((item) => item.id == par.id)
         .map((item) => {
-          console.log(item);
           return <Task task={item}></Task>;
         })}
 

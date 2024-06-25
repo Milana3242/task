@@ -2,31 +2,30 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = [];
 
-const listSlice = createSlice({
-  name: "list",
+const taskSlice = createSlice({
+  name: "task",
   initialState,
   reducers: {
     addTask(state, action) {
       state.push(action.payload);
-      console.log(state);
+    },
+    deleteTask(state, action) {
+      state.push(action.payload);
     },
     changeNameTask(state, action) {
+      const task = state.filter(item => item.listId === action.payload.id)?.[action.payload.i]
+      task.name = action.payload.value
+      //console.log('state',state)
       // state[action.payload.i].name = action.payload.value;
-      const itemToChange = state.filter(
-        (item) => item.listId === action.payload.id
-      );
-      itemToChange[action.payload.i].name = action.payload.value;
     },
     changeCheckbox(state, action) {
-    //   state[action.payload.i].items[action.payload.g].checked =
-    //     !state[action.payload.i].items[action.payload.g].checked;
-    const itemToChange = state.filter(
+    const task = state.filter(
       (item) => item.listId === action.payload.id
-    );
-    itemToChange[action.payload.i].items[action.payload.g].checked =!itemToChange[action.payload.i].items[action.payload.g].checked ;
+    )?.[action.payload.i]
+     task.items[action.payload.g].checked =! task.items[action.payload.g].checked ;
     },
   },
 });
 
-export const { changeNameTask, addTask, changeCheckbox } = listSlice.actions;
-export default listSlice.reducer;
+export const { changeNameTask, addTask, changeCheckbox } = taskSlice.actions;
+export default taskSlice.reducer;

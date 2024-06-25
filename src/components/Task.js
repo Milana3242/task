@@ -10,17 +10,13 @@ function Task({ task }) {
 
   const items = useSelector((state) => state.task);
   const dispatch = useDispatch();
-  console.log("task", task.items);
-  console.log("items", items);
 
   const item = items.filter((item) => {
     return item.listId == task.id;
   });
-  console.log("item", item);
 
   function onChangeNameTasks(e,i,id) {
     const value = e.target.value;
-    console.log(value)
     dispatch(changeNameTask({ i, value, id }));
   }
 
@@ -42,57 +38,37 @@ function Task({ task }) {
       <h3>{task.name}</h3>
       <div>
         {item.map((item, i) => {
-          console.log("it", item.listId);
           const id=item.listId
           return (
-            <>
-              <input onChange={(e) => onChangeNameTasks(e,i,id)} />
+            <div key={i}>
+              <input value={item.name} onChange={(e) => onChangeNameTasks(e,i,id)} />
+              <button>X</button>
               <br></br>
               {item.items.map((point,g) => {
-                console.log("item", item);
 
                 return (
-                  <>
-                    <span>
+
+                    <span key={g}>
+                        {g+1}
                       <input
                         onChange={() => onChangeCheckBox(id,i,g)}
                         type="checkbox"
                         key={i}
+                        checked={point.checked}
                       />
+
                     </span>
-                  </>
+
                 );
               })}
-            </>
+            </div>
           );
         })}
         <br></br>
         <button onClick={addNewTask}>Добавить</button>
 
-        {/* {itemss.map((item,i) => {
-            console.log('it',item)
-          return (
-            <span>
-              <input
-                onChange={() => onChangeCheckBox( )}
-                type="checkbox"
-                key={i}
-              />
 
-
-            </span>
-          );
-        })} */}
-      </div>
-
-      {/* {tasks.map((task, i) => {
-        return (
-          <>
-            <input value={tasks[i].name} onChange={(e)=>onChangeNameTasks(e,i)} />
-
-          </>
-        );
-      })} */}
+    </div>
     </div>
   );
 }

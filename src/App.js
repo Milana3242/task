@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import CheckPointsPages from "./pages/CheckPointsPage";
@@ -12,12 +12,21 @@ import store from "./redux/store";
 import NavigateMen from "./components/NavigateMen";
 
 function App() {
+  const [name, setName] = React.useState("");
 
+  const id = window.location.href.split("/")[4];
+  let location = useLocation();
+
+  const nameList = useSelector((state) => state.taskGroop);
+
+  React.useEffect(() => {
+    const headName = nameList.find((item) => item.id == id);
+    setName(headName);
+  }, [location]);
 
   return (
     <div className="App">
-      <Header />
-
+      <Header headName={name}></Header>
       <div className="content">
         <NavigateMen />
         <Routes>

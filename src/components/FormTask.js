@@ -19,13 +19,11 @@ function FormTask(props) {
     }
     const id=Math.random().toFixed(2)
     const data=dispatch(createList({ name, count ,id}));
-    console.log('data',data.payload.id)
     navigate('/CheckPointsPage');
     onAddTask(count,data.payload.id);
   }
 
   function onAddTask(count,listId) {
-    console.log('listId',listId)
 
     const checkboxes = [];
     for (let i = 0; i < count; i++) {
