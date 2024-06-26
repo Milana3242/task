@@ -12,12 +12,16 @@ const listSlice = createSlice({
       state.push(action.payload);
     },
 
-
     deleteAllList(state) {
       return (state = []);
+    },
+    deleteTaskGroop(state, action) {
+      if (state.length == 0) return [];
+      state = state.filter((item) => item.id !== action.payload.id);
+      return state;
     },
   },
 });
 
-export const { createList ,deleteAllList, } = listSlice.actions;
+export const { createList, deleteAllList, deleteTaskGroop } = listSlice.actions;
 export default listSlice.reducer;

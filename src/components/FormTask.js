@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { createList } from "../redux/slices/taskGroopSlices";
-import { useNavigate } from "react-router-dom";
-import { addTask } from "../redux/slices/taskSlices";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { createList } from '../redux/slices/taskGroopSlices';
+import { useNavigate } from 'react-router-dom';
+import { addTask } from '../redux/slices/taskSlices';
 
 function FormTask(props) {
   const navigate = useNavigate();
@@ -15,8 +15,8 @@ function FormTask(props) {
   function createListAndNextPage() {
     const name = inputRef.current.value;
     const count = selectRef.current.value;
-    if (name == "" || count == "") {
-      return alert("Выберите значения!");
+    if (name == '' || count == '') {
+      return alert('Выберите значения!');
     }
     const id = Math.random().toFixed(2);
     const data = dispatch(createList({ name, count, id }));
@@ -31,22 +31,15 @@ function FormTask(props) {
     }
     dispatch(
       addTask({
-        name: "",
+        name: '',
         items: checkboxes,
         listId: listId,
       })
     );
   }
 
-  React.useEffect(() => {
-      console.log(ref)
-    if (ref === null) {
-      navigate("/");
-    }
-  }, );
-
   return (
-    <div ref={ref}>
+    <div>
       <input ref={inputRef} placeholder="название таски"></input>
       <br></br>
       <select ref={selectRef}>

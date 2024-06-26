@@ -1,8 +1,8 @@
-import React from "react";
-import Task from "../components/Task";
-import { useSelector, useDispatch } from "react-redux";
-import { BrowserRouter as Router, useParams } from "react-router-dom";
-import { addTask } from "../redux/slices/taskSlices";
+import React from 'react';
+import Task from '../components/Task';
+import { useSelector, useDispatch } from 'react-redux';
+import { BrowserRouter as Router, useParams } from 'react-router-dom';
+import { addTask } from '../redux/slices/taskSlices';
 
 function CheckPointsPage(props) {
   const par = useParams();
@@ -15,7 +15,6 @@ function CheckPointsPage(props) {
         .map((item) => {
           return <Task groop={item}></Task>;
         })}
-
     </div>
   );
 }

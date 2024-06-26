@@ -2,41 +2,47 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [];
 
-const listSlice = createSlice({
-  name: 'list',
+const taskSlice = createSlice({
+  name: 'task',
   initialState,
   reducers: {
     addTask(state, action) {
-      state.push(action.payload);
+      state.push({ ...action.payload, id: Math.random().toFixed(2) });
       console.log(state);
     },
+    deleteTask(state, action) {
+      if (state.length == 0) return [];
+      state = state.filter((item) => item.id !== action.payload.id);
+      return state;
+    },
     changeNameTask(state, action) {
-      // state = state.filter((item) => item.listId === action.payload.id);
-      // console.log('state', state);
-      // state[action.payload.i].name = action.payload.value;
-      const updatedTasks = state.filter((item, index) => {
-        if (item.listId === action.payload.id && index === action.payload.i) {
-          return {
-            ...item,
-            name: action.payload.value,
-          };
-        }
-        return item;
-      });
-
-      return updatedTasks;
+      const task = state.find((item) => item.id === action.payload.id);
+      task.name = action.payload.value;
+      console.log(task);
     },
     changeCheckbox(state, action) {
-      //   state[action.payload.i].items[action.payload.g].checked =
-      //     !state[action.payload.i].items[action.payload.g].checked;
-      const itemToChange = state.filter(
-        (item) => item.listId === action.payload.id
-      );
-      itemToChange[action.payload.i].items[action.payload.g].checked =
-        !itemToChange[action.payload.i].items[action.payload.g].checked;
+      const task = state.find((item) => item.id === action.payload.id);
+      task.items[action.payload.g].checked =
+        !task.items[action.payload.g].checked;
+    },
+
+    deleteAllTask(state) {
+      return (state = []);
+    },
+    deleteTaskWithTaskGroop(state, action) {
+      return (state = state.filter(
+        (item) => item.listId !== action.payload.id
+      ));
     },
   },
 });
 
-export const { changeNameTask, addTask, changeCheckbox } = listSlice.actions;
-export default listSlice.reducer;
+export const {
+  changeNameTask,
+  addTask,
+  deleteTask,
+  changeCheckbox,
+  deleteAllTask,
+  deleteTaskWithTaskGroop,
+} = taskSlice.actions;
+export default taskSlice.reducer;

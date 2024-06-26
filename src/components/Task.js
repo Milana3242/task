@@ -1,9 +1,14 @@
-import React, { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, useParams } from "react-router-dom";
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter as Router, useParams } from 'react-router-dom';
 
-import { changeCheckbox, changeNameTask } from "../redux/slices/taskSlices";
-import { addTask, deleteTask } from "../redux/slices/taskSlices";
+import {
+  changeCheckbox,
+  changeNameTask,
+  deleteAllTask,
+  addTask,
+  deleteTask,
+} from '../redux/slices/taskSlices';
 
 function Task({ groop }) {
   const par = useParams();
@@ -15,11 +20,10 @@ function Task({ groop }) {
 
   function onChangeNameTasks(e, id) {
     const value = e.target.value;
-    console.log(value)
     dispatch(changeNameTask({ value, id }));
   }
 
-  function onChangeCheckBox(id,g) {
+  function onChangeCheckBox(id, g) {
     dispatch(changeCheckbox({ id, g }));
   }
 
@@ -30,7 +34,7 @@ function Task({ groop }) {
     }
     dispatch(
       addTask({
-        name: "",
+        name: '',
         items: checkboxes,
         listId: par.id,
       })
@@ -39,44 +43,53 @@ function Task({ groop }) {
   function onDeleteTask(i, id) {
     dispatch(deleteTask({ i, id }));
   }
+  // function deleteTaskAll() {
+  //   dispatch(deleteAllTask());
+  // }
   return (
     <div>
       <h3>{groop.name}</h3>
       <div>
         {item.map((item, i) => {
           const id = item.id;
-          console.log(id)
+          console.log(id);
 
           return (
-              <>
-            <div key={i}>
-              <input
-                value={item.name}
-                onChange={(e) => onChangeNameTasks(e,  id)}
-              />
-              <button onClick={() => onDeleteTask(i, id)}>X</button>
+            <>
+              <div key={i}>
+                <input
+                  value={item.name}
+                  onChange={(e) => onChangeNameTasks(e, id)}
+                />
+                <button onClick={() => onDeleteTask(i, id)}>X</button>
+                <br></br>
+                {item.items.map((point, g) => {
+                  return (
+                    <span key={g}>
+                      {/* {g + 1} */}
+                      <input
+                        onChange={() => onChangeCheckBox(id, g)}
+                        type="checkbox"
+                        key={i}
+                        checked={point.checked}
+                      />
+                    </span>
+                  );
+                })}
+              </div>
               <br></br>
-              {item.items.map((point, g) => {
-                return (
-                  <span key={g}>
-                    {/* {g + 1} */}
-                    <input
-                      onChange={() => onChangeCheckBox(id, g)}
-                      type="checkbox"
-                      key={i}
-                      checked={point.checked}
-                    />
-                  </span>
-                );
-              })}
-            </div>
-            <br></br>
-
             </>
           );
         })}
         <br></br>
         <button onClick={addNewTask}>Добавить</button>
+        {item.length > 0 ? (
+          <button onClick={() => dispatch(deleteAllTask())}>
+            Очистить все
+          </button>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );
