@@ -3,72 +3,81 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
 
 import { changeCheckbox, changeNameTask } from "../redux/slices/taskSlices";
-import { addTask } from "../redux/slices/taskSlices";
+import { addTask, deleteTask } from "../redux/slices/taskSlices";
 
-function Task({ task }) {
+function Task({ groop }) {
   const par = useParams();
-
-  const items = useSelector((state) => state.task);
   const dispatch = useDispatch();
+  console.log(groop);
+  const items = useSelector((state) => state.task);
 
-  const item = items.filter((item) => {
-    return item.listId == task.id;
-  });
+  const item = items.filter((item) => item.listId == groop.id);
 
-  function onChangeNameTasks(e,i,id) {
+  function onChangeNameTasks(e, id) {
     const value = e.target.value;
-    dispatch(changeNameTask({ i, value, id }));
+    console.log(value)
+    dispatch(changeNameTask({ value, id }));
   }
 
-  function onChangeCheckBox(id,i, g) {
-    dispatch(changeCheckbox({ id,i, g }));
+  function onChangeCheckBox(id,g) {
+    dispatch(changeCheckbox({ id, g }));
   }
 
   function addNewTask() {
+    const checkboxes = [];
+    for (let i = 0; i < groop.count; i++) {
+      checkboxes.push({ checked: false });
+    }
     dispatch(
       addTask({
         name: "",
-        items: item[0].items,
+        items: checkboxes,
         listId: par.id,
       })
     );
   }
+  function onDeleteTask(i, id) {
+    dispatch(deleteTask({ i, id }));
+  }
   return (
     <div>
-      <h3>{task.name}</h3>
+      <h3>{groop.name}</h3>
       <div>
         {item.map((item, i) => {
-          const id=item.listId
+          const id = item.id;
+          console.log(id)
+
           return (
+              <>
             <div key={i}>
-              <input value={item.name} onChange={(e) => onChangeNameTasks(e,i,id)} />
-              <button>X</button>
+              <input
+                value={item.name}
+                onChange={(e) => onChangeNameTasks(e,  id)}
+              />
+              <button onClick={() => onDeleteTask(i, id)}>X</button>
               <br></br>
-              {item.items.map((point,g) => {
-
+              {item.items.map((point, g) => {
                 return (
-
-                    <span key={g}>
-                        {g+1}
-                      <input
-                        onChange={() => onChangeCheckBox(id,i,g)}
-                        type="checkbox"
-                        key={i}
-                        checked={point.checked}
-                      />
-
-                    </span>
-
+                  <span key={g}>
+                    {/* {g + 1} */}
+                    <input
+                      onChange={() => onChangeCheckBox(id, g)}
+                      type="checkbox"
+                      key={i}
+                      checked={point.checked}
+                    />
+                  </span>
                 );
               })}
             </div>
+            <br></br>
+
+            </>
           );
         })}
         <br></br>
         <button onClick={addNewTask}>Добавить</button>
-
-
-    </div>
+      </div>
     </div>
   );
 }

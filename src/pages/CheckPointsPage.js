@@ -5,16 +5,15 @@ import { BrowserRouter as Router, useParams } from "react-router-dom";
 import { addTask } from "../redux/slices/taskSlices";
 
 function CheckPointsPage(props) {
-  const dispatch = useDispatch();
   const par = useParams();
-  const tasks = useSelector((state) => state.taskGroop);
+  const taskGroop = useSelector((state) => state.taskGroop);
 
   return (
     <div className="task_form">
-      {tasks
+      {taskGroop
         .filter((item) => item.id == par.id)
         .map((item) => {
-          return <Task task={item}></Task>;
+          return <Task groop={item}></Task>;
         })}
 
     </div>

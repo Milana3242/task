@@ -11,8 +11,13 @@ const listSlice = createSlice({
       // state.count = action.payload.count;
       state.push(action.payload);
     },
+
+
+    deleteAllList(state) {
+      return (state = []);
+    },
   },
 });
 
-export const { createList } = listSlice.actions;
+export const { createList ,deleteAllList, } = listSlice.actions;
 export default listSlice.reducer;
