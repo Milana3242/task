@@ -1,42 +1,42 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [];
 
-const taskSlice = createSlice({
-  name: "task",
+const listSlice = createSlice({
+  name: 'list',
   initialState,
   reducers: {
     addTask(state, action) {
-      state.push({ ...action.payload, id: Math.random().toFixed(2) });
+      state.push(action.payload);
       console.log(state);
     },
-    deleteTask(state, action) {
-      if(state.length==0)return []
-      state = state.filter((item) => item.id !== action.payload.id);
-      return state;
-    },
     changeNameTask(state, action) {
-      const task = state.find((item) => item.id === action.payload.id)
-      task.name = action.payload.value;
-      console.log(task);
+      // state = state.filter((item) => item.listId === action.payload.id);
+      // console.log('state', state);
+      // state[action.payload.i].name = action.payload.value;
+      const updatedTasks = state.filter((item, index) => {
+        if (item.listId === action.payload.id && index === action.payload.i) {
+          return {
+            ...item,
+            name: action.payload.value,
+          };
+        }
+        return item;
+      });
+
+      return updatedTasks;
     },
     changeCheckbox(state, action) {
-      const task = state.find((item) => item.id === action.payload.id)
-      task.items[action.payload.g].checked =
-        !task.items[action.payload.g].checked;
-
-    },
-    deleteAllTask(state) {
-      return (state = []);
+      //   state[action.payload.i].items[action.payload.g].checked =
+      //     !state[action.payload.i].items[action.payload.g].checked;
+      const itemToChange = state.filter(
+        (item) => item.listId === action.payload.id
+      );
+      itemToChange[action.payload.i].items[action.payload.g].checked =
+        !itemToChange[action.payload.i].items[action.payload.g].checked;
     },
   },
 });
 
-export const {
-  changeNameTask,
-  addTask,
-  deleteTask,
-  changeCheckbox,
-  deleteAllTask,
-} = taskSlice.actions;
-export default taskSlice.reducer;
+export const { changeNameTask, addTask, changeCheckbox } = listSlice.actions;
+export default listSlice.reducer;
