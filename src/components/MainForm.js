@@ -1,26 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { createList } from '../redux/slices/taskGroopSlices';
-import { useNavigate } from 'react-router-dom';
-import { addTask } from '../redux/slices/taskSlices';
+import React from "react";
+import { useDispatch } from "react-redux";
 
-function FormTask(props) {
+import { createList } from "../redux/slices/taskGroopSlices";
+import { useNavigate } from "react-router-dom";
+import { addTask } from "../redux/slices/taskSlices";
+
+function MainForm(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const ref = React.useRef();
   const inputRef = React.useRef();
   const selectRef = React.useRef();
 
   function createListAndNextPage() {
     const name = inputRef.current.value;
     const count = selectRef.current.value;
-    if (name == '' || count == '') {
-      return alert('Выберите значения!');
+    if (name === "" || count === "") {
+      return alert("Выберите значения!");
     }
     const id = Math.random().toFixed(2);
     const data = dispatch(createList({ name, count, id }));
-    navigate(`/CheckPointsPage/${id}`);
+    navigate(`/TaskGroopForm/${id}`);
     onAddTask(count, data.payload.id);
   }
 
@@ -31,8 +30,8 @@ function FormTask(props) {
     }
     dispatch(
       addTask({
-        name: '',
-        items: checkboxes,
+        name: "",
+        checkboxes,
         listId: listId,
       })
     );
@@ -83,4 +82,4 @@ function FormTask(props) {
   );
 }
 
-export default FormTask;
+export default MainForm;

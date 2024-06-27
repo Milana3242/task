@@ -7,21 +7,19 @@ const listSlice = createSlice({
   initialState,
   reducers: {
     createList(state, action) {
-      // state.name = action.payload.name;
-      // state.count = action.payload.count;
       state.push(action.payload);
     },
 
-    deleteAllList(state) {
+    deleteAllGroop(state) {
       return (state = []);
     },
-    deleteTaskGroop(state, action) {
-      if (state.length == 0) return [];
-      state = state.filter((item) => item.id !== action.payload.id);
+    deleteGroop(state, action) {
+      if (state.length === 0) return [];
+      state = state.filter((list) => list.id !== action.payload.id);
       return state;
     },
   },
 });
 
-export const { createList, deleteAllList, deleteTaskGroop } = listSlice.actions;
+export const { createList, deleteAllGroop, deleteGroop } = listSlice.actions;
 export default listSlice.reducer;

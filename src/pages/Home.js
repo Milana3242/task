@@ -1,10 +1,11 @@
-import React from 'react';
-import FormTask from '../components/FormTask';
+import React, { useRef } from "react";
 
-function Home(props) {
+import MainForm from "../components/MainForm";
+
+function Home() {
   return (
-    <div className="task_form">
-      <FormTask />
+    <div className="main_form">
+      <MainForm />
     </div>
   );
 }

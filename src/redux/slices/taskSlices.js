@@ -11,27 +11,27 @@ const taskSlice = createSlice({
       console.log(state);
     },
     deleteTask(state, action) {
-      if (state.length == 0) return [];
-      state = state.filter((item) => item.id !== action.payload.id);
+      if (state.length === 0) return [];
+      state = state.filter((task) => task.id !== action.payload.id);
       return state;
     },
     changeNameTask(state, action) {
-      const task = state.find((item) => item.id === action.payload.id);
+      const task = state.find((task) => task.id === action.payload.id);
       task.name = action.payload.value;
       console.log(task);
     },
     changeCheckbox(state, action) {
-      const task = state.find((item) => item.id === action.payload.id);
-      task.items[action.payload.g].checked =
-        !task.items[action.payload.g].checked;
+      const task = state.find((task) => task.id === action.payload.id);
+      task.checkboxes[action.payload.g].checked =
+        !task.checkboxes[action.payload.g].checked;
     },
 
     deleteAllTask(state) {
       return (state = []);
     },
-    deleteTaskWithTaskGroop(state, action) {
+    deleteTasksWithGroop(state, action) {
       return (state = state.filter(
-        (item) => item.listId !== action.payload.id
+        (task) => task.listId !== action.payload.id
       ));
     },
   },
@@ -43,6 +43,6 @@ export const {
   deleteTask,
   changeCheckbox,
   deleteAllTask,
-  deleteTaskWithTaskGroop,
+  deleteTasksWithGroop,
 } = taskSlice.actions;
 export default taskSlice.reducer;

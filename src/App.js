@@ -1,37 +1,33 @@
 import React from "react";
-
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import CheckPointsPages from "./pages/CheckPointsPage";
+import TaskGroopForm from "./pages/TaskGroopForm";
 import Home from "./pages/Home";
 import Header from "./components/Header";
-import store from "./redux/store";
-// import NavigateMenu from './components/NavigateMenu';
 import NavigateMen from "./components/NavigateMen";
 
 function App() {
-  const [name, setName] = React.useState("");
+  const [groopName, setGoopName] = React.useState("");
+  let location = useLocation();
+  const taskGroop = useSelector((state) => state.taskGroop);
 
   const id = window.location.href.split("/")[4];
-  let location = useLocation();
-
-  const nameList = useSelector((state) => state.taskGroop);
 
   React.useEffect(() => {
-    const headName = nameList.find((item) => item.id == id);
-    setName(headName);
+    const groop = taskGroop.find((groop) => groop.id === id);
+    setGoopName(groop);
   }, [location]);
 
   return (
     <div className="App">
-      <Header headName={name}></Header>
+      <Header groopName={groopName}></Header>
       <div className="content">
         <NavigateMen />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/CheckPointsPage/:id" element={<CheckPointsPages />} />
+          <Route path="/TaskGroopForm/:id" element={<TaskGroopForm />} />
         </Routes>
       </div>
     </div>

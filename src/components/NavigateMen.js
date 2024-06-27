@@ -2,47 +2,49 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { deleteAllList } from '../redux/slices/taskGroopSlices';
+
+import { deleteAllGroop,deleteGroop, } from '../redux/slices/taskGroopSlices';
 import {
   deleteAllTask,
-  deleteTaskWithTaskGroop,
+  deleteTasksWithGroop,
 } from '../redux/slices/taskSlices';
-import { deleteTaskGroop } from '../redux/slices/taskGroopSlices';
+
 export default function NavigateMenu() {
-  const taskGroup = useSelector((state) => state.taskGroop);
+  const taskGroop = useSelector((state) => state.taskGroop);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function deleteAll() {
-    dispatch(deleteAllList());
+    dispatch(deleteAllGroop());
     dispatch(deleteAllTask());
     navigate('/');
   }
 
-  function deleteGroop(id) {
-    dispatch(deleteTaskGroop({ id }));
-    dispatch(deleteTaskWithTaskGroop({ id }));
+  function deleteTaskGroop(id) {
+    dispatch(deleteGroop({ id }));
+    dispatch(deleteTasksWithGroop({ id }));
     navigate('/');
   }
+
   return (
     <div className="navigate">
-      <nav>
+      <nav >
         <Link to={'/'} className="nav_main">
-          <h3>ГЛАВНАЯ</h3>
+          <h2>ГЛАВНАЯ</h2>
         </Link>
-        <ol>
-          {taskGroup.length > 0 &&
-            taskGroup.map((item, i) => {
+        <ol className='page_list'>
+          {taskGroop.length > 0 &&
+            taskGroop.map((groop, i) => {
               return (
-                <li key={i}>
-                  <Link to={`/CheckPointsPage/${item.id}`}>{item.name}</Link>{' '}
-                  <button onClick={() => deleteGroop(item.id)}>X</button>
+                <li className='page-item' key={i}>
+                  <Link to={`/TaskGroopForm/${groop.id}`} className='page-link'>{groop.name}</Link>{' '}
+                  <button onClick={() => deleteTaskGroop(groop.id)}>X</button>
                 </li>
               );
             })}
         </ol>
       </nav>
-      {taskGroup.length > 0 ? (
+      {taskGroop.length > 0 ? (
         <button onClick={deleteAll}>Очистить все</button>
       ) : (
         ''

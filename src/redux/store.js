@@ -1,16 +1,17 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import taskGroop from './slices/taskGroopSlices';
-import task from './slices/taskSlices';
-import { persistStore, persistReducer } from 'reduxjs-toolkit-persist';
-import storage from 'reduxjs-toolkit-persist/lib/storage';
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "reduxjs-toolkit-persist";
+import storage from "reduxjs-toolkit-persist/lib/storage";
+
+import taskGroop from "./slices/taskGroopSlices";
+import tasks from "./slices/taskSlices";
 
 const rootReducer = combineReducers({
-  task,
+  tasks,
   taskGroop,
 });
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage,
 };
 
